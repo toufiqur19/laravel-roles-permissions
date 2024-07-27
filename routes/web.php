@@ -1,10 +1,13 @@
 <?php
 
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RoleController;
+use App\Models\Article;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ProfileController;
 use Spatie\Permission\Contracts\Permission;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\UserController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -27,13 +30,28 @@ Route::middleware('auth')->group(function () {
     Route::put('/permissions/update/{id}', [PermissionController::class, 'update'])->name('permission.update');
     Route::get('/permissions/delete/{id}', [PermissionController::class, 'destroy'])->name('permission.destroy');
 
-    // permission
+    // roles
     Route::get('/roles', [RoleController::class, 'index'])->name('roles');
     Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
     Route::post('/roles/store', [RoleController::class, 'store'])->name('roles.store');
     Route::get('/roles/edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
     Route::put('/roles/update/{id}', [RoleController::class, 'update'])->name('roles.update');
     Route::get('/roles/delete/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
+
+     // articles
+     Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
+     Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
+     Route::post('/articles/store', [ArticleController::class, 'store'])->name('articles.store');
+     Route::get('/articles/edit/{id}', [ArticleController::class, 'edit'])->name('articles.edit');
+     Route::put('/articles/update/{id}', [ArticleController::class, 'update'])->name('articles.update');
+     Route::get('/articles/delete/{id}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+
+     // users
+     Route::get('/users', [UserController::class, 'index'])->name('users');
+     Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+     Route::post('/users/update/{id}', [UserController::class, 'update'])->name('users.update');
+     Route::get('/users/delete/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+     
 });
 
 require __DIR__.'/auth.php';

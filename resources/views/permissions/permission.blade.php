@@ -49,8 +49,12 @@
                                         {{ Carbon\Carbon::parse($permission->created_at)->format('d-M-Y') }}
                                     </td>
                                     <td class="px-6 py-4">
+                                        @can('edit permissions')                                
                                         <a class="bg-slate-700 text-white px-3 py-2 rounded-md" href="{{ route('permission.edit', $permission->id) }}">Edit</a>
+                                        @endcan
+                                        @can('delete permissions')
                                         <a class="bg-red-700 text-white px-3 py-2 rounded-md" href="{{ route('permission.destroy', $permission->id) }}">Delete</a>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @endforeach

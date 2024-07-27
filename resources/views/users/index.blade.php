@@ -2,10 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-lg text-gray-800 leading-tight px-10">
-                {{ __('Roles') }}
-            </h2>
-            <h2 class="font-semibold text-lg text-gray-800 leading-tight px-10">
-                <a href="{{ route('roles.create') }}">Create</a>
+                {{ __('Users') }}
             </h2>
         </div>
     </x-slot>
@@ -22,45 +19,43 @@
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
                             <thead class="text-sm font-bold text-gray-800 border-b border-gray-200 ">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 w-[10%]">
-                                        #
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 w-[10%]">
+                                    <th scope="col" class="px-6 py-3 w-[20%]">
                                         Name
                                     </th>
-                                    <th scope="col" class="px-6 py-3 w-[20%]">
-                                        Permission
+                                    <th scope="col" class="px-6 py-3 w-[25%]">
+                                        Email
                                     </th>
-                                    <th scope="col" class="px-6 py-3 w-[20%]">
-                                        Created
+                                    <th scope="col" class="px-6 py-3 w-[30%]">
+                                        Role Permissions
                                     </th>
-                                    <th scope="col" class="px-6 py-3 w-[40%]">
+                                    <th scope="col" class="px-6 py-3 w-[25%]">
                                         Action
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($roles as $role)
+                                @foreach ($users as $user)
                                 <tr class="bg-white border-b border-gray-200">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                        {{ $role->id }}
-                                    </th>
                                     <td class="px-6 py-4">
-                                        {{ $role->name }}
+                                        {{ $user->name }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $role->permissions->pluck('name')->implode(', ') }}
+                                        {{ $user->email }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ Carbon\Carbon::parse($role->created_at)->format('d-M-Y') }}
+                                        @if (!empty($user->getRoleNames()))
+                                            @foreach ($user->getRoleNames() as $roleName)                               
+                                            <label class="bg-green-500 text-white px-3 py-2 rounded-md"> {{ $roleName }}</label>
+                                            @endforeach
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4">
-                                        @can('edit roles')                                          
-                                        <a class="bg-slate-700 text-white px-3 py-2 rounded-md" href="{{ route('roles.edit', $role->id) }}">Add/Edit Role Permission</a>
+                                        @can('edit users')
+                                        <a class="bg-slate-700 text-white px-3 py-2 rounded-md" href="{{ route('users.edit', $user->id) }}">Edit</a>
                                         @endcan
 
-                                        @can('delete roles')
-                                        <a class="bg-red-700 text-white px-3 py-2 rounded-md" href="{{ route('roles.destroy', $role->id) }}">Delete</a>
+                                        @can('delete users')
+                                        <a class="bg-red-700 text-white px-3 py-2 rounded-md" href="{{ route('users.destroy', $user->id) }}">Delete</a>
                                         @endcan
                                     </td>
                                 </tr>

@@ -16,17 +16,38 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+
+                @can('view permissions')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('permission')" :active="request()->routeIs('permission')">
                         {{ __('Permissions') }}
                     </x-nav-link>
                 </div>
+                @endcan
 
+                @can('view roles')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('roles')" :active="request()->routeIs('roles')">
                         {{ __('Roles') }}
                     </x-nav-link>
                 </div>
+                @endcan
+
+                @can('view users')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                        {{ __('Users') }}
+                    </x-nav-link>
+                </div>
+                @endcan
+
+                @can('view articles')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('articles')" :active="request()->routeIs('articles')">
+                        {{ __('Articles') }}
+                    </x-nav-link>
+                </div>
+                @endcan
 
                <div class="lg:flex float-end">
                 @guest
