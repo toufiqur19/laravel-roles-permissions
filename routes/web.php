@@ -2,20 +2,19 @@
 
 use App\Models\Article;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
 use Spatie\Permission\Contracts\Permission;
 use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\UserController;
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
-Route::get('/', function () {
-    return view('home');
-})->name('dashboard');
+Route::get('/',[HomeController::class, 'index'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

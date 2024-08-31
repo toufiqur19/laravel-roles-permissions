@@ -1,48 +1,42 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between">
-            <h2 class="font-semibold text-lg text-gray-800 leading-tight px-10">
-                {{ __('Roles') }}
-            </h2>
-            <h2 class="font-semibold text-lg text-gray-800 leading-tight px-10">
-                <a href="{{ route('roles.create') }}">Create</a>
-            </h2>
-        </div>
-    </x-slot>
-
     @if (Session::has('success'))
         <div class="bg-green-200 border-green-600 p-4 mt-3 mx-16 rounded-sm shadow-sm">{{ Session::get('success') }}</div>
     @endif
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-16">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="py-5">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-5">
+            <div class="bg-gray-900 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    <div class="flex justify-between mx-5 my-5">
+                        <h2 class="font-semibold text-2xl text-white leading-tight">
+                            {{ __('Roles') }}
+                        </h2>
+                        <h2 class="font-semibold text-sm text-white leading-tight">
+                            <a class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded duration-300" href="{{ route('roles.create') }}">Create</a>
+                        </h2>
+                    </div>
                     <div class="relative overflow-x-auto">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                            <thead class="text-sm font-bold text-gray-800 border-b border-gray-200 ">
+                            <thead class="text-sm font-bold bg-gray-800 text-white">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 w-[10%]">
+                                    <th scope="col" class="px-6 py-4 w-[5%]">
                                         #
                                     </th>
-                                    <th scope="col" class="px-6 py-3 w-[10%]">
+                                    <th scope="col" class="px-6 py-4 w-[10%]">
                                         Name
                                     </th>
-                                    <th scope="col" class="px-6 py-3 w-[20%]">
+                                    <th scope="col" class="px-6 py-4 w-[35%]">
                                         Permission
                                     </th>
-                                    <th scope="col" class="px-6 py-3 w-[20%]">
-                                        Created
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 w-[40%]">
+                                    <th scope="col" class="px-6 py-4 w-[50%]">
                                         Action
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="border border-gray-800">
                                 @foreach ($roles as $role)
-                                <tr class="bg-white border-b border-gray-200">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                <tr class="odd:bg-gray-900 even:bg-gray-800 text-white">
+                                    <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap ">
                                         {{ $role->id }}
                                     </th>
                                     <td class="px-6 py-4">
@@ -50,9 +44,6 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ $role->permissions->pluck('name')->implode(', ') }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ Carbon\Carbon::parse($role->created_at)->format('d-M-Y') }}
                                     </td>
                                     <td class="px-6 py-4">
                                         @can('edit roles')                                          

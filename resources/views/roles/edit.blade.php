@@ -1,26 +1,23 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight px-10">
-                {{ __('Edit Roles') }}
-            </h2>
-            <h2 class="font-semibold text-lg text-gray-800 leading-tight px-10">
-                <a href="{{ route('roles') }}">Back</a>
-            </h2>
-        </div>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-16">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+    <div class="py-5">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-5">
+            <div class="bg-gray-900 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="flex justify-between mx-5 mt-10">
+                    <h2 class="font-semibold text-2xl text-white leading-tight">
+                        {{ __('Edit Roles') }}
+                    </h2>
+                    <h2 class="font-semibold text-sm text-white leading-tight">
+                        <a class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded" href="{{ route('roles') }}">Back</a>
+                    </h2>
+                </div>
+                <div class="p-6 text-gray-400">
                     <form action="{{ route('roles.update', $roles->id)}}" method="POST">
                         @csrf
                         @method('PUT')
                         <div>
                             <label for="" class="text-lg font-medium">Name</label>
                             <div class="mb-3">
-                                <input type="text" name="name" value="{{ old('name',$roles->name) }}" class="border-gray-300 shadow-sm w-1/2 rounded-md" placeholder="Enter Name">
+                                <input type="text" name="name" value="{{ old('name',$roles->name) }}" class="bg-gray-800 shadow-sm w-1/2 rounded-md" placeholder="Enter Name">
                             </div>
                             @error('name')
                                <div class=" text-red-600 mb-3">{{ $message }}</div> 

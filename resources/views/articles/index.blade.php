@@ -1,26 +1,23 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between">
-            <h2 class="font-semibold text-lg text-gray-800 leading-tight px-10">
-                {{ __('Articles') }}
-            </h2>
-            <h2 class="font-semibold text-lg text-gray-800 leading-tight px-10">
-                <a href="{{ route('articles.create') }}">Create</a>
-            </h2>
-        </div>
-    </x-slot>
-
     @if (Session::has('success'))
         <div class="bg-green-200 border-green-600 p-4 mt-3 mx-16 rounded-sm shadow-sm">{{ Session::get('success') }}</div>
     @endif
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-16">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="py-5">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-5">
+            <div class="bg-gray-900 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    <div class="flex justify-between my-5">
+                        <h2 class="font-semibold text-xl text-white leading-tight">
+                            {{ __('Articles') }}
+                        </h2>
+                        <h2 class="font-semibold text-md text-white leading-tight">
+                            <a class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded duration-300" href="{{ route('articles.create') }}">Create</a>
+                        </h2>
+                    </div>
                     <div class="relative overflow-x-auto">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                            <thead class="text-sm font-bold text-gray-800 border-b border-gray-200 ">
+                            <thead class="text-sm font-bold bg-gray-800 text-white">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 w-[25%]">
                                         Title
@@ -38,7 +35,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($articles as $article)
-                                <tr class="bg-white border-b border-gray-200">
+                                <tr class="even:bg-gray-600 odd:bg-gray-700 text-white">
                                     <td class="px-6 py-4">
                                         {{ $article->title }}
                                     </td>
@@ -50,7 +47,7 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         @can('edit articles')  
-                                        <a class="bg-slate-700 text-white px-3 py-2 rounded-md" href="{{ route('articles.edit', $article->id) }}">Edit</a>
+                                        <a class="bg-green-500 text-white px-3 py-2 rounded-md" href="{{ route('articles.edit', $article->id) }}">Edit</a>
                                         @endcan
 
                                         @can('delete articles')

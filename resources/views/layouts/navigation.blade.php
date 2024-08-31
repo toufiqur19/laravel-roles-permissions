@@ -1,77 +1,29 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <h1>LogoName</h1>
-                    </a>
-                </div>
+<header class="bg-gray-900 lg:px-6 sticky top-0 px-7 flex justify-between items-center w-full h-16 z-50">
+    <div class="logo">
+        <a class="font-bold text-2xl whitespace-nowrap text-[#07ccec] hidden lg:block" href="{{ route('dashboard') }}"
+        ><span class="text-green-500">Role</span>Permisson</a>
+    </div>
+    <div class="flex items-center space-x-3">
+        <a class="font-bold text-2xl whitespace-nowrap text-[#07ccec] lg:hidden" href=""
+        ><span class="text-green-500">Role</span>Permisson</a>
+        <i id="bar" class="fa-solid fa-bars-staggered text-[#07ccec] text-xl lg:pl-56 cursor-pointer lg:hidden block"></i>
+        <i id="time" class="fa-solid fa-xmark text-xl text-[#07ccec] lg:pl-56 cursor-pointer hidden lg:hidden"></i>
+    </div>
+    
+    <nav>
+        <div class="flex gap-5">
+            @guest
+               <ul class="text-white font-semibold flex space-x-3">
+                    <li class="cursor-pointer hover:text-[#07ccec] hover:translate-x-1 duration-500"><a href="{{ route('login') }}">Login</a></li>
+                    <li class="cursor-pointer hover:text-[#07ccec] hover:translate-x-1 duration-500"><a href="{{ route('register') }}">Register</a></li>
+               </ul>
+            @endguest
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
-
-                @can('view permission')
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('permission')" :active="request()->routeIs('permission')">
-                        {{ __('Permissions') }}
-                    </x-nav-link>
-                </div>
-                @endcan
-
-                @can('view roles')
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('roles')" :active="request()->routeIs('roles')">
-                        {{ __('Roles') }}
-                    </x-nav-link>
-                </div>
-                @endcan
-
-                @can('view users')
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
-                        {{ __('Users') }}
-                    </x-nav-link>
-                </div>
-                @endcan
-
-                @can('view articles')
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('articles')" :active="request()->routeIs('articles')">
-                        {{ __('Articles') }}
-                    </x-nav-link>
-                </div>
-                @endcan
-
-               <div class="flex float-end">
-                @guest
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
-                        {{ __('Login') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
-                        {{ __('Register') }}
-                    </x-nav-link>
-                </div>
-                @endguest
-               </div>
-
-            </div>
-
-            <!-- Settings Dropdown -->
             @auth
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="flex items-center">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white">
                             <div>{{ Auth::user()->name }} ({{ Auth::user()->roles->pluck('name')->implode(' ') }})</div>
 
                             <div class="ms-1">
@@ -101,52 +53,6 @@
                 </x-dropdown>
             </div>
             @endauth
-
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
         </div>
-    </div>
-
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                @auth
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-                @endauth
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-            </div>
-        </div>
-    </div>
-</nav>
+    </nav>
+</header>
