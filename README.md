@@ -11,7 +11,6 @@
   - Middleware Restrict access based on user roles & permissions.
 
 - ** Installation **
-  - Clone or download repository then:
   - download zip file or clone the project
   - run : cd `laravel-roles-permissions`
   - run : `cp .env.example .env`
