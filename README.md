@@ -13,10 +13,10 @@
 - ** Installation **
   - Clone or download repository then:
   - download zip file or clone the project
-  - run : cd laravel-starter
-  - run : cp .env.example .env
+  - run : cd `laravel-roles-permissions`
+  - run : `cp .env.example .env`
   - open .env and update DB_DATABASE Name
-  - run : composer install
-  - run : php artisan key:generate
-  - run : php artisan migrate:fresh --seed
-  - run : php artisan serve
+  - run : `composer install`
+  - run : `php artisan key:generate`
+  - run : `php artisan migrate:fresh --seed`
+  - run : `php artisan serve`
